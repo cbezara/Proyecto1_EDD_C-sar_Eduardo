@@ -101,4 +101,71 @@ public class grafo {
         }
         return resultado;
     }
+
+    /**
+     * Elimina una proteína del grafo. Busca el índice de la proteína por su nombre,
+     * crea un nuevo array de proteínas sin ella y una nueva matriz de adyacencia
+     * excluyendo la fila y columna de esa proteina. 
+     *
+     * @param nombre Nombre de la proteína a eliminar
+     * @return Mensaje indicando si la proteína fue eliminada o no encontrada
+     */
+    public String eliminar_proteina(String nombre){
+        int encontrado = -1;
+        String [] nuevo = new String [this.proteinas.length];
+        int aux = 0;
+        for (int i = 0 ; i<this.proteinas.length; i++){
+            if (nombre == this.proteinas[i]){
+                encontrado += i+1;
+            }
+            else{
+                nuevo[aux] = this.proteinas[i];
+                aux++;
+            }
+        }
+        if (encontrado == -1){
+            String mensaje = "La proteina " + nombre + " no fue encontrada"; 
+            return mensaje;
+        } 
+        int [][] nueva = new int [this.matriz.length-1][this.matriz.length-1];
+        int primero = 0;
+        int segundo = 0;
+        for (int i = 0; i<this.matriz.length;i++){
+            if (i == encontrado) continue;
+            for (int x = 0; x<this.matriz.length;x++){
+                if (x == encontrado)continue;
+                nueva[primero][segundo++] = matriz[i][x];
+            }
+            primero++;
+        
+        }
+        this.matriz = nueva;
+        this.proteinas = nuevo;
+        String mensaje = "La proteina " + nombre + " fue eliminada";
+        return mensaje;
+    }
+
+    /**
+     * Agrega o cambia la interacción (valor) entre dos proteínas en la matriz
+     * Busca los índices de las proteínas de origen y destino. Si ambas existen,
+     * no son la misma y el costo de la interacción no es menor a 0 debido a que si es 0 se toma como que ya no es posible esa interacción, entonces actualiza la matriz en la posición
+     * [origen][destino] con el nuevo valor.
+     *
+     * @param proteina_origen Nombre de la proteína de origen
+     * @param proteina_destino Nombre de la proteína de destino
+     * @param valor Nuevo valor de interacción (debe ser >= 0)
+     * @return Mensaje indicando éxito o error
+     */
+    public String agregar_cambiar_iteracciones(String proteina_origen, String proteina_destino, int valor){
+        int origen = -1;
+        int destino = -1;
+        String mensaje = "La proteina "+ proteina_origen + " esta relacionada correctamente con la proteina " + proteina_destino;
+        for (int i = 0; i<this.proteinas.length;i++){
+            if (this.proteinas[i] == proteina_origen){origen += i+1;}
+            if (this.proteinas[i] == proteina_destino){destino += i+1;}
+        }
+        if (origen == destino || origen == -1 || destino == 1 || valor < 0){mensaje = "Error";return mensaje;}
+        this.matriz[origen][destino] = valor;
+        return mensaje;
+    }
 }
