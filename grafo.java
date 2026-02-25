@@ -149,8 +149,7 @@ public class grafo {
      * Agrega o cambia la interacción (valor) entre dos proteínas en la matriz
      * Busca los índices de las proteínas de origen y destino. Si ambas existen,
      * no son la misma y el costo de la interacción no es menor a 0 debido a que si es 0 se toma como que ya no es posible esa interacción, entonces actualiza la matriz en la posición
-     * [origen][destino] con el nuevo valor.
-     *
+     * [origen][destino] con el nuevo valor
      * @param proteina_origen Nombre de la proteína de origen
      * @param proteina_destino Nombre de la proteína de destino
      * @param valor Nuevo valor de interacción (debe ser >= 0)
@@ -167,5 +166,30 @@ public class grafo {
         if (origen == destino || origen == -1 || destino == 1 || valor < 0){mensaje = "Error";return mensaje;}
         this.matriz[origen][destino] = valor;
         return mensaje;
+    }
+    /**
+     * Guarda las proteinas y sus relaciones en un array (cadena) de strings de la misma forma en que se cargan en el csv
+     * @return cadena donde cada valor es un String de la forma Proteina_Origen,Proteina_Destino,Peso
+     */
+    public String [] guardado(){
+        int contador = 0;
+        for (int [] x : this.matriz){
+            for (int y : x){
+            if (y>0){contador++;}
+            
+            }
+        }
+        String[] cadena = new String [contador];
+        int indice = 0;
+        for (int x = 0; x<this.matriz[0].length;x++){
+            for (int y = 0; y< this.matriz[0].length; y++){
+                if (this.matriz[x][y] > 0){
+                    String valor = Integer.toString(this.matriz[x][y]);
+                    cadena[indice] = this.proteinas[x] + "," + this.proteinas[y] + "," + valor;
+                    indice++;
+                }
+            }
+        }
+        return cadena;
     }
 }
