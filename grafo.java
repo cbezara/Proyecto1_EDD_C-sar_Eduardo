@@ -2,8 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.proyectoeduardocesar;
-
+package clases_funciones;
 /**
  * Clase que representa un grafo de proteínas usando una matriz de adyacencia
  * 
@@ -24,25 +23,50 @@ public class grafo {
      * @param cadenas Array de líneas con la informacion
      */
     public grafo(String[] cadenas) {
-        this.proteinas = new String[cadenas.length];
-        this.matriz = new int[this.proteinas.length][this.proteinas.length];
-
-        for (int i = 0; i < cadenas.length; i++) {
-            String cadena = cadenas[i];
-            String[] aux = cadena.split(",");
-            this.proteinas[i] = aux[0];
+        int contador = 0;
+        String [] aux = new String [cadenas.length*2];
+        for (String cadena : cadenas){
+            String [] aux2 = cadena.split(",");
+            aux[contador++] = aux2[0];
+            aux[contador++] = aux2[1];
         }
-
-        for (int i = 0; i < cadenas.length; i++) {
-            String cadena = cadenas[i];
-            String[] aux = cadena.split(",");
-            for (int y = 0; y < this.proteinas.length; y++) {
-                if (aux[2].equals(this.proteinas[y])) {
-                    this.matriz[i][y] = Integer.parseInt(aux[1]);
-                }
+        quickSort(aux,0,aux.length-1);
+        contador = 1;
+        String total = aux[0];
+        for (int i=1; i<aux.length;i++){
+            if (aux[i]!= total){
+                contador++;
+                total = aux[i];
             }
         }
-    }
+        this.proteinas = new String [contador];
+        contador = 1;
+        total = aux[0];
+        this.proteinas[0] = total;
+        for (int i=1; i<aux.length;i++){
+            if (aux[i]!= total){
+                this.proteinas[contador] = aux[i];
+                contador++;
+                total = aux[i];
+            }
+        }
+        this.matriz = new int [proteinas.length][proteinas.length];
+        for (String cadena : cadenas){
+            String [] aux2 = cadena.split(",");
+            int origen = -1;
+            int destino = -1;
+            int valor = Integer.parseInt(aux2[2]);
+            for (int i = 0; i<proteinas.length;i++){
+                if (aux2[0] == proteinas[i]){origen += i + 1;}
+                if (aux2[1] == proteinas[i]){destino += i + 1;}
+                if (origen>-1 && destino>-1){this.matriz[origen][destino] = valor;break;}
+            }
+        
+        
+        }
+        
+        }
+    
 
     /**
      * Agrega una nueva proteína al grafo junto con sus relaciones
@@ -112,7 +136,7 @@ public class grafo {
      */
     public String eliminar_proteina(String nombre){
         int encontrado = -1;
-        String [] nuevo = new String [this.proteinas.length];
+        String [] nuevo = new String [this.proteinas.length-1];
         int aux = 0;
         for (int i = 0 ; i<this.proteinas.length; i++){
             if (nombre == this.proteinas[i]){
@@ -158,12 +182,13 @@ public class grafo {
     public String agregar_cambiar_iteracciones(String proteina_origen, String proteina_destino, int valor){
         int origen = -1;
         int destino = -1;
-        String mensaje = "La proteina "+ proteina_origen + " esta relacionada correctamente con la proteina " + proteina_destino;
+        String valora = Integer.toString(valor);
+        String mensaje = "La proteina "+ proteina_origen + " esta relacionada correctamente con la proteina " + proteina_destino + " y su valor es " + valora;
         for (int i = 0; i<this.proteinas.length;i++){
             if (this.proteinas[i] == proteina_origen){origen += i+1;}
             if (this.proteinas[i] == proteina_destino){destino += i+1;}
         }
-        if (origen == destino || origen == -1 || destino == 1 || valor < 0){mensaje = "Error";return mensaje;}
+        if (origen == destino || origen == -1 || destino == -1 || valor < 0){mensaje = "Error";return mensaje;}
         this.matriz[origen][destino] = valor;
         return mensaje;
     }
@@ -191,5 +216,65 @@ public class grafo {
             }
         }
         return cadena;
+    }
+    public boolean existe(String nombre){
+        for (String s : this.proteinas){
+            if (nombre == s){
+                return true;
+            }
+        }
+        return false;
+    
+    }
+    
+    /**
+     * QuickSort (Profe subanos puntos)
+     * Toma los Strings como valores unicode, los compara y ordena
+     *
+     * @param proteinas  Array con las proteinas, incluida la repeticion
+     * @param menor  Índice inferior de la particion
+     * @param mayor Índice superior de la particion
+     */
+    private static void quickSort(String[] proteinas, int menor, int mayor) {
+        if (menor < mayor) {
+            int subanos_puntos = particion(proteinas, menor, mayor);
+            quickSort(proteinas, menor, subanos_puntos - 1);
+            quickSort(proteinas, subanos_puntos + 1, mayor);
+        }
+    }
+
+    /**
+     * Partición para Quicksort, coloca el pivote en su posición correcta
+     * Reorganiza los elementos menores a la izquierda y mayores a la derecha
+     *
+     * @param proteinas array donde se ubican las proteinas para particionar
+     * @param menor  Índice inferior
+     * @param mayor Índice superior (pivote)
+     * @return Posición final del pivote
+     */
+    private static int particion(String[] proteinas, int menor, int mayor) {
+        String pivote = proteinas[mayor];
+        int i = menor - 1;
+        for (int j = menor; j < mayor; j++) {
+            if (proteinas[j].compareTo(pivote) <= 0) {
+                i++;
+                cambio(proteinas, i, j);
+            }
+        }
+        cambio(proteinas, i + 1, mayor);
+        return i + 1;
+    }
+
+    /**
+     * Intercambia dos elementos en un array de Strings
+     *
+     * @param proteinas Array donde se intercambiarán las proteinas para ordenarlas
+     * @param i   Primer índice
+     * @param j   Segundo índice
+     */
+    private static void cambio(String[] proteinas, int i, int j) {
+        String aux = proteinas[i];
+        proteinas[i] = proteinas[j];
+        proteinas[j] = aux;
     }
 }
