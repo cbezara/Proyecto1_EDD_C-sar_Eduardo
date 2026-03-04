@@ -84,11 +84,21 @@ public class ModificarGrafoFrame extends javax.swing.JFrame {
         jButton10.setMaximumSize(new java.awt.Dimension(217, 23));
         jButton10.setMinimumSize(new java.awt.Dimension(217, 23));
         jButton10.setPreferredSize(new java.awt.Dimension(217, 23));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton12.setBackground(new java.awt.Color(204, 255, 255));
         jButton12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton12.setForeground(new java.awt.Color(51, 153, 255));
         jButton12.setText("Eliminar Proteina");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setBackground(new java.awt.Color(204, 255, 255));
         jButton13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -167,14 +177,30 @@ public class ModificarGrafoFrame extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         AgregarProteinaDialog dialog = new AgregarProteinaDialog(this.datos, this, true);
         dialog.setVisible(true);
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-
-        System.exit(0);
+        MenuPrincipalFrame regreso = new MenuPrincipalFrame(this.datos);
+        regreso.setVisible(true);
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        AgregarInteraccionDialog dialog = new AgregarInteraccionDialog(this.datos, this, true);
+        dialog.setVisible(true);
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        EliminarProteinaDialog dialog = new EliminarProteinaDialog(this.datos,this,true);
+        dialog.setVisible(true);
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
      * @param args the command line arguments

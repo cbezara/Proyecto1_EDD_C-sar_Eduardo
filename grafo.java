@@ -34,7 +34,7 @@ public class grafo {
         contador = 1;
         String total = aux[0];
         for (int i=1; i<aux.length;i++){
-            if (aux[i]!= total){
+            if (!aux[i].equals(total)){
                 contador++;
                 total = aux[i];
             }
@@ -44,7 +44,7 @@ public class grafo {
         total = aux[0];
         this.proteinas[0] = total;
         for (int i=1; i<aux.length;i++){
-            if (aux[i]!= total){
+            if (!aux[i].equals(total)){
                 this.proteinas[contador] = aux[i];
                 contador++;
                 total = aux[i];
@@ -57,8 +57,8 @@ public class grafo {
             int destino = -1;
             int valor = Integer.parseInt(aux2[2]);
             for (int i = 0; i<proteinas.length;i++){
-                if (aux2[0] == proteinas[i]){origen += i + 1;}
-                if (aux2[1] == proteinas[i]){destino += i + 1;}
+                if (aux2[0].equals(proteinas[i])){origen += i + 1;}
+                if (aux2[1].equals(proteinas[i])){destino += i + 1;}
                 if (origen>-1 && destino>-1){this.matriz[origen][destino] = valor;break;}
             }
         
@@ -72,59 +72,34 @@ public class grafo {
      * Agrega una nueva proteína al grafo junto con sus relaciones
      * Las relaciones se dan como pares "proteína, valor" en un array
      * Amplía el array de proteínas y la matriz, y coloca los valores en la nueva fila
-     * Devuelve un array con las proteínas que no se encontraron en el array donde estan las proteinas, por lo tanto no existen en el sistema
      *
      * @param nueva Nombre de la nueva proteína
      * @param relacion array con pares: [proteína1, valor1, proteína2, valor2, ...]
-     * @return array con los nombres de proteinas que no se encontraron en el grafo (vacío si todas existen)
      */
-    public String[] agregar_proteina(String nueva, String[] relacion) {
-        String[] reemplazo = new String[this.proteinas.length + 1];
-        System.arraycopy(this.proteinas, 0, reemplazo, 0, this.proteinas.length);
-        reemplazo[this.proteinas.length] = nueva;
-
-        int[][] matriz_nueva = new int[this.matriz.length + 1][this.matriz[0].length + 1];
+    public void agregar_proteina(String nueva, String[] relacion) {
+        String [] nuevo = new String [this.proteinas.length+1];
+        int [][] matri = new int [this.proteinas.length+1][this.proteinas.length+1];
+        System.arraycopy(this.proteinas, 0, nuevo, 0, this.proteinas.length);
         for (int i = 0; i < this.matriz.length; i++) {
-            System.arraycopy(this.matriz[i], 0, matriz_nueva[i], 0, this.matriz[0].length);
+            System.arraycopy(this.matriz[i], 0, matri[i], 0, this.matriz[i].length);
         }
-
-        String[] no_encontrados = new String[relacion.length / 2];
-
-        for (int i = 0; i < relacion.length; i += 2) {
-            if (i != 0) {
-                no_encontrados[i / 2] = relacion[i];
-            } else {
-                no_encontrados[0] = relacion[0];
-            }
-
-            for (int x = 0; x < reemplazo.length - 1; x++) {
-                if (relacion[i].equals(reemplazo[x])) {
-                    matriz_nueva[reemplazo.length - 1][x] = Integer.parseInt(relacion[i + 1]);
-                    if (i != 0) {
-                        no_encontrados[i / 2] = null;
-                    } else {
-                        no_encontrados[0] = null;
-                    }
+        nuevo[this.proteinas.length] = nueva;
+        for (int i = 0; i<relacion.length;i+=2){
+            for(int x = 0;x<this.proteinas.length;x++){
+                if(this.proteinas[x].equals(relacion[i])){
+                    int aux = Integer.parseInt(relacion[i+1]);
+                    matri[this.proteinas.length][x] = aux;
+                
                 }
+            
+            
             }
+        
         }
-
-        int contador = 0;
-        for (String s : no_encontrados) {
-            if (s != null) {
-                contador++;
-            }
-        }
-
-        String[] resultado = new String[contador];
-        int indice = 0;
-        for (String s : no_encontrados) {
-            if (s != null) {
-                resultado[indice++] = s;
-            }
-        }
-        return resultado;
+        this.matriz = matri;
+        this.proteinas = nuevo;
     }
+    
 
     /**
      * Elimina una proteína del grafo. Busca el índice de la proteína por su nombre,
@@ -139,7 +114,7 @@ public class grafo {
         String [] nuevo = new String [this.proteinas.length-1];
         int aux = 0;
         for (int i = 0 ; i<this.proteinas.length; i++){
-            if (nombre == this.proteinas[i]){
+            if (nombre.equals(this.proteinas[i])){
                 encontrado += i+1;
             }
             else{
@@ -153,9 +128,9 @@ public class grafo {
         } 
         int [][] nueva = new int [this.matriz.length-1][this.matriz.length-1];
         int primero = 0;
-        int segundo = 0;
         for (int i = 0; i<this.matriz.length;i++){
             if (i == encontrado) continue;
+            int segundo = 0;
             for (int x = 0; x<this.matriz.length;x++){
                 if (x == encontrado)continue;
                 nueva[primero][segundo++] = matriz[i][x];
@@ -185,8 +160,8 @@ public class grafo {
         String valora = Integer.toString(valor);
         String mensaje = "La proteina "+ proteina_origen + " esta relacionada correctamente con la proteina " + proteina_destino + " y su valor es " + valora;
         for (int i = 0; i<this.proteinas.length;i++){
-            if (this.proteinas[i] == proteina_origen){origen += i+1;}
-            if (this.proteinas[i] == proteina_destino){destino += i+1;}
+            if (this.proteinas[i].equals(proteina_origen)){origen += i+1;}
+            if (this.proteinas[i].equals(proteina_destino)){destino += i+1;}
         }
         if (origen == destino || origen == -1 || destino == -1 || valor < 0){mensaje = "Error";return mensaje;}
         this.matriz[origen][destino] = valor;
@@ -219,7 +194,7 @@ public class grafo {
     }
     public boolean existe(String nombre){
         for (String s : this.proteinas){
-            if (nombre == s){
+            if (nombre.equals(s)){
                 return true;
             }
         }

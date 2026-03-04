@@ -3,19 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package interfaz;
+
 import clases_funciones.*;
 import javax.swing.JOptionPane;
 /**
  *
- * @author cesardf
+ * @author eduardo
  */
-public class AgregarProteinaDialog extends javax.swing.JDialog {
+public class EliminarProteinaDialog extends javax.swing.JDialog {
     grafo datos;
-    String nombreProteina;
     /**
-     * Creates new form AgregarProteinaDialog
+     * Creates new form EliminarProteinaDialog
      */
-    public AgregarProteinaDialog(grafo data,java.awt.Frame parent, boolean modal) {
+    public EliminarProteinaDialog(grafo data, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.datos = data;
         initComponents();
@@ -31,35 +31,19 @@ public class AgregarProteinaDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 204, 255));
-        setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        setForeground(new java.awt.Color(204, 204, 255));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel2.setForeground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel1.setText("Nombre de la Proteina");
+        jLabel1.setText("Proteina a Eliminar");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,11 +61,6 @@ public class AgregarProteinaDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel2.setText("BioGraph");
-        jLabel2.setAlignmentX(0.5F);
-
         jButton2.setBackground(new java.awt.Color(255, 153, 153));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(51, 102, 255));
@@ -92,32 +71,37 @@ public class AgregarProteinaDialog extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 153, 255));
+        jLabel2.setText("BioGraph");
+        jLabel2.setAlignmentX(0.5F);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(79, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(188, 188, 188)
                         .addComponent(jButton1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(51, 51, 51))
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(141, 141, 141)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
@@ -135,11 +119,11 @@ public class AgregarProteinaDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -151,24 +135,24 @@ public class AgregarProteinaDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nombre = jTextField1.getText().trim();
-        if (!nombre.matches("P[1-9][0-9]*")) {
-            JOptionPane.showMessageDialog(this, "Formato inválido. Debe ser P seguido de un número entero positivo (ej. P1)");
-            return;}
         boolean existe = this.datos.existe(nombre);
-        if (!existe) {
-            this.nombreProteina = nombre;
-            AgregarRelacionesDialog relacionesDialog = new AgregarRelacionesDialog(this.nombreProteina,this.datos,this, true);
-            relacionesDialog.setVisible(true);
-            this.dispose();
-        
-    }
-        else{JOptionPane.showMessageDialog(this, "Ya existe esta proteina");}
+        if (existe){
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar la proteína " + nombre + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                String resultado = this.datos.eliminar_proteina(nombre);
+                JOptionPane.showMessageDialog(this, resultado);
+                ModificarGrafoFrame volver = new ModificarGrafoFrame(this.datos);
+                volver.setVisible(true);
+                this.dispose();
+            }
+        }
+        else{JOptionPane.showMessageDialog(this, "Esta proteina no existe");}
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ModificarGrafoFrame volver = new ModificarGrafoFrame(this.datos);
-        volver.setVisible(true);
+        volver.setVisible(true);    
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -176,7 +160,6 @@ public class AgregarProteinaDialog extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -184,7 +167,6 @@ public class AgregarProteinaDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

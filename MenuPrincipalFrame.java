@@ -114,6 +114,11 @@ public class MenuPrincipalFrame extends javax.swing.JFrame {
         jButton11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton11.setForeground(new java.awt.Color(51, 153, 255));
         jButton11.setText("Mostrar grafo");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setBackground(new java.awt.Color(204, 255, 255));
         jButton12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -203,6 +208,10 @@ public class MenuPrincipalFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        BFS_DFSFrame ver = new BFS_DFSFrame (this.datos);
+        ver.setVisible(true);
+        this.dispose();
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -225,6 +234,13 @@ public class MenuPrincipalFrame extends javax.swing.JFrame {
         System.exit(0);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        VisualizarGrafoFrame ver = new VisualizarGrafoFrame(this.datos);
+        ver.setVisible(true);
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments

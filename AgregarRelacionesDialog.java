@@ -212,23 +212,27 @@ public class AgregarRelacionesDialog extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nombre = this.jTextField1.getText().trim();
         String aux = this.jTextField2.getText().trim();
-        int valor = -1;
-        if (this.datos.existe(nombre)){
-        for (int i = 0; i<this.relaciones.length; i+=2){
-            if (this.relaciones[i] == nombre){JOptionPane.showMessageDialog(this, "Ya agregaste esta relacion");}
-            if(this.relaciones[i] == null){break;}
-        
-        }
-        try{valor = Integer.parseInt(aux)+1; if (valor<0){aux = "Error"; valor =Integer.parseInt(aux);}}
-        catch (NumberFormatException e){JOptionPane.showMessageDialog(this, "Estas introduciendo un número muy grande, menor que (0) o letras. En caso contrario no has introducido ningún valor.");}
-        this.relaciones[this.indice++] = nombre;
-        this.relaciones[this.indice++] = Integer.toString(valor);
-        if (indice ==2){
-        this.jTextArea1.append(this.relaciones[this.indice-2]+" - " + this.relaciones[this.indice-1]);}
-        else{this.jTextArea1.append("\n" + this.relaciones[this.indice-2] + " - " + this.relaciones[this.indice-1]);}
-        }
-        else{JOptionPane.showMessageDialog(this, "No se introdujo ningún dato o se ha introducido una proteina que no existe");}
-        // TODO add your handling code here:
+        if (nombre == null){JOptionPane.showMessageDialog(this, "No se introdujo ningún dato");}
+        else{
+            int valor = -1;
+            if (this.datos.existe(nombre)){
+            for (int i = 0; i<this.relaciones.length; i+=2){
+                if (this.relaciones[i] == nombre){JOptionPane.showMessageDialog(this, "Ya agregaste esta relacion");}
+                if(this.relaciones[i] == null){break;}
+
+            }
+            try{valor += Integer.parseInt(aux)+1; if (valor<0){aux = "Error"; valor =Integer.parseInt(aux);}
+            this.relaciones[this.indice++] = nombre;
+            this.relaciones[this.indice++] = Integer.toString(valor);
+            if (indice ==2){
+            this.jTextArea1.append(this.relaciones[this.indice-2]+" - " + this.relaciones[this.indice-1]);}
+            else{this.jTextArea1.append("\n" + this.relaciones[this.indice-2] + " - " + this.relaciones[this.indice-1]);}
+            }
+            catch (NumberFormatException e){JOptionPane.showMessageDialog(this, "Estas introduciendo un número muy grande, menor que (0) o letras. En caso contrario no has introducido ningún valor.");}
+
+            }
+            else{JOptionPane.showMessageDialog(this, "Se ha introducido una proteina que no existe");}
+        }// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -236,6 +240,9 @@ public class AgregarRelacionesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ModificarGrafoFrame volver = new ModificarGrafoFrame(this.datos);
+        volver.setVisible(true);
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -244,7 +251,9 @@ public class AgregarRelacionesDialog extends javax.swing.JDialog {
         System.arraycopy(this.relaciones, 0, relacionesFinal, 0, this.indice);
         this.relaciones = relacionesFinal;
         this.datos.agregar_proteina(nombreOrigen, this.relaciones);
-        
+        ModificarGrafoFrame volver = new ModificarGrafoFrame(this.datos);
+        volver.setVisible(true);
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
