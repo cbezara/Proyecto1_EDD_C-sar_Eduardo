@@ -186,18 +186,19 @@ public class AgregarInteraccionDialog extends javax.swing.JDialog {
         String destino = jTextField2.getText().trim();
         boolean originario = this.datos.existe(origen);
         boolean destinatario = this.datos.existe(destino);
-        if (originario && destinatario ){
+        if (originario && destinatario && origen != null && destino!= null){
             try{
                 int valor = Integer.parseInt(jTextField3.getText().trim());
                 if (valor>=0){
                     int i_origen = -1;
                     int i_destino = -1;
                     for (int i = 0; i<this.datos.proteinas.length;i++){
-                        if (this.datos.proteinas[i]==origen){i_origen += i+1;}
-                        if (this.datos.proteinas[i]==destino){i_destino += i+1;}
-                        if (i_origen >-1 && i_destino >-1){this.datos.matriz[i_origen][i_destino] = valor;JOptionPane.showMessageDialog(this, "Interacción agregada o cambiada de forma exitosa");}
+                        if (this.datos.proteinas[i].equals(origen)){i_origen += i+1;}
+                        if (this.datos.proteinas[i].equals(destino)){i_destino += i+1;}
+                        if (i_origen >-1 && i_destino >-1){this.datos.matriz[i_origen][i_destino] = valor;JOptionPane.showMessageDialog(this, "Interacción agregada o cambiada de forma exitosa");break;}
                     }
                 }
+                else{JOptionPane.showMessageDialog(this, "El costo no puede ser menor a 0");}
             }
             catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "El valor debe ser igual o mayor a 0, si es 0 significa que no tienen relación");
