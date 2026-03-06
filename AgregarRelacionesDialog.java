@@ -251,6 +251,7 @@ public class AgregarRelacionesDialog extends javax.swing.JDialog {
         System.arraycopy(this.relaciones, 0, relacionesFinal, 0, this.indice);
         this.relaciones = relacionesFinal;
         this.datos.agregar_proteina(nombreOrigen, this.relaciones);
+        JOptionPane.showMessageDialog(this, "Proteina creada de forma exitosa");
         ModificarGrafoFrame volver = new ModificarGrafoFrame(this.datos);
         volver.setVisible(true);
         this.dispose();

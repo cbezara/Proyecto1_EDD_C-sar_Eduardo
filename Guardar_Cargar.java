@@ -5,7 +5,7 @@
 package clases_funciones;
 
 /**
- *
+ * Contiene los métodos para cargar y guardar
  * @author cesardf
  */
 import javax.swing.JFileChooser;

@@ -5,12 +5,10 @@
 package clases_funciones;
 
 /**
- *
+ * Cola para la busqueda BFS y para el algoritmos Dijkstra
  * @author eduardo
  */
-/**
- * Cola para la busqueda BFS
- */
+
 public class Cola {
     private int[] elementos;
     private int frente;

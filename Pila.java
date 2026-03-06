@@ -5,13 +5,10 @@
 package clases_funciones;
 
 /**
- *
+ * Pila para la busqueda DFS
  * @author eduardo
  */
-/**
- * Pila implementada con arreglo estático.
- * Capacidad fija (máximo número de nodos).
- */
+
 public class Pila {
     private int[] elementos;
     private int tope;

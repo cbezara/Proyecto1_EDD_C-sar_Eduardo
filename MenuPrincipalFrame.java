@@ -6,6 +6,7 @@ package interfaz;
 import clases_funciones.*;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author cesardf
@@ -109,6 +110,11 @@ public class MenuPrincipalFrame extends javax.swing.JFrame {
         jButton10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton10.setForeground(new java.awt.Color(51, 153, 255));
         jButton10.setText("Ruta metabólica más corta");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton11.setBackground(new java.awt.Color(204, 255, 255));
         jButton11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -124,6 +130,11 @@ public class MenuPrincipalFrame extends javax.swing.JFrame {
         jButton12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton12.setForeground(new java.awt.Color(51, 153, 255));
         jButton12.setText("Identificación de Hubs");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setBackground(new java.awt.Color(204, 255, 255));
         jButton13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -241,6 +252,84 @@ public class MenuPrincipalFrame extends javax.swing.JFrame {
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        RutaMasCortaFrame ver = new RutaMasCortaFrame(this.datos);
+        ver.setVisible(true);
+        this.dispose();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+    private boolean esMejor(int a, int b, int[] grado, int[] maxVecino) {
+        if (grado[a] > grado[b]) return true;
+        if (grado[a] < grado[b]) return false;
+        if (maxVecino[a] > maxVecino[b]) return true;
+        if (maxVecino[a] < maxVecino[b]) return false;
+        return a < b; // Criterio de desempate final (índice menor)
+    }
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        
+        int[] grado = new int[datos.proteinas.length];
+
+        for (int i = 0; i < datos.proteinas.length; i++) {
+            int cont = 0;
+            for (int j = 0; j < datos.proteinas.length; j++) {
+                if (datos.matriz[i][j] > 0) cont++; 
+                if (datos.matriz[j][i] > 0) cont++; 
+            }
+            grado[i] = cont;
+        }
+
+        int[] maxVecino = new int[datos.proteinas.length];
+        for (int i = 0; i < datos.proteinas.length; i++) {
+            int max = -1;
+            for (int j = 0; j < datos.proteinas.length; j++) {
+                if (i != j && (datos.matriz[i][j] > 0 || datos.matriz[j][i] > 0)) {
+                    if (grado[j] > max) {
+                        max = grado[j];
+                    }
+                }
+            }
+            maxVecino[i] = max;
+        }
+
+        int[] mejores = new int[3]; 
+        for (int i = 0; i < 3; i++) mejores[i] = -1;
+
+        for (int i = 0; i < datos.proteinas.length; i++) {
+            int pos = -1;
+            if (mejores[0] == -1 || esMejor(i, mejores[0], grado, maxVecino)) {
+                pos = 0;
+            } else if (mejores[1] == -1 || esMejor(i, mejores[1], grado, maxVecino)) {
+                pos = 1;
+            } else if (mejores[2] == -1 || esMejor(i, mejores[2], grado, maxVecino)) {
+                pos = 2;
+            }
+            if (pos != -1) {
+                
+                for (int k = 2; k > pos; k--) {
+                    mejores[k] = mejores[k - 1];
+                }
+                mejores[pos] = i;
+            }
+        }
+
+        String[] resultado = new String[3];
+        for (int i = 0; i < 3; i++) {
+            if (mejores[i] != -1) {
+                resultado[i] = datos.proteinas[mejores[i]];
+            } 
+            else {
+                JOptionPane.showMessageDialog(this, "Hay menos de 3 proteinas");
+            }
+        }
+        String mensaje = "Proteinas de mayor riesgo en caso de ser eliminadas:" + "\n" + "1-" + resultado[0] + "\n" + "2-" + resultado[1] + "\n" + "3-" + resultado[2];
+        JOptionPane.showMessageDialog(this, mensaje);
+        
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
      * @param args the command line arguments
